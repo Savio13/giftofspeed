@@ -1,0 +1,39 @@
+<!--start-bc-recently-viewed-init-->
+{%- if template contains 'collection' or template contains 'product' -%}
+  {%- assign bc_settings = shop.metafields.bc-sf-filter.settings -%}
+    {%- comment -%} Check enable {%- endcomment -%}
+    {%- assign bc_rv_enable = bc_settings | split: 'recentlyViewedEnable":' | last | split: ',' | first | strip -%}
+    {%- if bc_rv_enable == 'true' -%}
+      {{ 'bc-recently-viewed-product-lib.min.js' | asset_url | script_tag }}
+
+      {% if template contains 'collection' %}
+      <script defer="defer">
+        var bcRvParams = {
+          settings: {
+            isCollectionPage: true,
+            showOnCollectionPage: true
+          }
+        };
+      </script>
+      {% endif %}
+
+      {% if template contains 'product' %}
+      <script defer="defer">
+        var bcRvParams = {
+          settings: {
+            isProductPage: true,
+            showOnProductPage: false
+          }
+        };
+        var bcOtpProductJsonData = {"products":[{%- include 'bc-sf-filter-product-json', product: product  -%}]};
+      </script>
+      {% endif %}
+
+      <script defer="defer">
+        var bcSfFilterParams = {{ bc_settings }};
+        var bcRecentProduct = new BCRecentProduct();
+        bcRecentProduct.init(bcSfFilterParams,bcRvParams);
+      </script>
+    {%- endif -%}
+  {%- endif -%}
+<!--end-bc-recently-viewed-init-->

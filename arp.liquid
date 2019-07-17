@@ -1,0 +1,14 @@
+<style>
+  #awarp-product-related,
+  #awarp-shopping-cart-related,
+  #awarp-recently-viewed-products{
+    clear:both;
+  }
+</style>
+{% if template == 'product' %}
+<div id="awarp-product-related" data-id="{{ product.id }}" data-collection_id="{{ collection.id }}" data-collection_handle="{{ collection.handle }}" {% assign arps='all,all-products,best-sellers,best-selling-products,cross-sell-application,frontpage,front-page,featured,featured-products,featured-collection,free-shipping,flash-sale,homepage,home-page,inventory_notifications,in-stock,just-in,low-stock-products,low-stock-products-all-products,new,new-arrivals,new-arrival,new-in,new-products,newest-products,on-sale,orderlyemails-recommended-products,out-of-stock,sale,whats-new'|split:',' %}{% if collection and collection.all_products_count > 1 %}{% unless arps contains collection.handle %}{% assign arpc=collection %}{% endunless %}{% endif %}{% unless arpc %}{% for c in product.collections %}{% unless arps contains c.handle or c.all_products_count < 2 %}{% assign arpc=c %}{% break %}{% endunless %}{% endfor %}{% endunless %}{% if arpc %} data-cid="{{ arpc.id }}" data-ids="{% for product in arpc.products limit:250 %}{{ product.id }},{% endfor %}"{% endif %}></div>
+{% endif %}
+{% if template == 'cart' %}
+<div id="awarp-shopping-cart-related" data-cart-products='[{% for line in cart.items %}{% if line != cart.items[0] %},{% endif %}{"product_id": {{ line.product_id }}, "variant_id": {{ line.variant_id}}}{% endfor %}]'></div>
+{% endif %}
+<div id="awarp-recently-viewed-products" data-cart-products="{% for line in cart.items %}{{ line.product_id }},{% endfor %}"></div>

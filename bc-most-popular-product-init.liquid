@@ -1,0 +1,22 @@
+<!-- start-bc-popular-product-init -->
+{% if template contains 'collection' %}
+  {%- assign bc_settings = shop.metafields.bc-sf-filter.settings -%}
+  {%- comment -%} Check enable {%- endcomment -%}
+  {%- assign bc_mp_enable = bc_settings | split: 'mostPopularEnable":' | last | split: ',' | first | strip -%}
+  {%- if bc_mp_enable == 'true' -%}
+
+    {{ 'bc-most-popular-product-lib.min.js' | asset_url | script_tag }}
+    <script defer="defer">
+      var bcMpParams = {
+        settings: {
+          isCollectionPage: true,
+          showOnCollectionPage: true
+        }
+      }
+      var bcSfFilterParams = {{ bc_settings }};
+      var bcPopularProduct = new BCPopularProduct();
+      bcPopularProduct.init(bcSfFilterParams,bcMpParams);
+    </script>
+  {% endif %}
+{% endif %}
+<!-- end-bc-popular-product-init -->

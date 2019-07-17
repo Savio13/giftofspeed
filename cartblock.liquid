@@ -1,0 +1,69 @@
+{%- if cartblock == 'header' -%}
+<div id="cart_block" class="dropdown {% if settings.shopping_cart_type == "sidebar" %}cart-block-click{% endif %}" style="border-left: 1px solid white;" >
+  <div class="cart-heading dropdown-toogle" data-hover="dropdown" data-toggle="dropdown" {% if settings.shopping_cart_type != "sidebar" %}onclick="window.location.href = '/cart'"{% endif %}>
+    <i class="cart-count" style="background: #31abed; color: #f9da05 !important; right: 104%;top: 10%;"><span class="total_count_ajax">{{ cart.item_count }}</span>
+	</i>
+    <p class="count-item">items</p>	
+    <i class="cart-icon" style="background: #31abed; border-color: #ffffff00 !important;">
+      {%- if settings.icon_cart != blank and settings.icon_cart_hover != blank -%}
+      <img src="{{ settings.icon_cart_hover | img_url }}" class="cart-icon-hover" alt="" />
+      <img src="{{ settings.icon_cart | img_url }}" class="cart-icon-standard" alt="" />
+      {%- else -%}
+      {%- include "cart-icon" -%}
+      {%- endif -%}
+    </i>
+    <p style="color: white !important;">
+      <strong id="total_price_ajax">
+        <span class="total_price"><span class="money">{{ cart.total_price | money }}</span></span>
+      </strong>
+    </p>
+  </div>
+  <div class="dropdown-menu" id="cart_content">
+    <div class="cart_content_ajax">
+      {%- if cart.items == empty -%}
+      <div class="empty">{{ 'general.cart_info.cart_empty_html' | t }}</div>
+      {%- else -%}
+      <div class="mini-cart-info">
+        <table>
+          <tbody>
+            {%- for item in cart.items -%}
+            <tr>
+              <td class="image">		        
+                <a href="{{item.url }}">
+                  <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}" /></a>
+              </td>
+              <td class="name">
+                <a href="{{item.url }}">{{ item.product.title }}</a>
+                <div>
+                  {%- if item.product.variants.size > 1 -%}
+                  <small>{{ item.variant.title }}</small>
+                  {%- endif -%}
+                </div>
+                <p><span class="quantity">{{ item.quantity }} × </span><span class="total"><span class="money">{{ item.price | money }}</span></span></p>
+              </td>
+              <td class="remove"><a href="javascript:void(0)" data-id="{{item.variant_id}}" title="{{'general.cart_info.remove_this_item' | t  | escape}}">×</a></td>
+            </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+      <div class="mini-cart-total">
+        <table>
+          <tbody>
+            <tr>
+              <td><b>{{ 'general.cart_info.sub_total' | t }}</b></td>
+              <td class="right"><span class="money">{{ cart.total_price | money }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="checkout cart__condition__wrapper">
+        <a href="/cart" class="button btn-default">{{ 'general.cart_info.view_shopping_bag' | t }}</a>
+        <a href="/checkout" class="button checkout-button {% if settings.cart_terms_enable %}btn-disabled{% endif %}">{{ 'general.cart_info.checkout' | t }}</a>
+      </div>
+      {%- endif -%}
+    </div>
+    <div class="loading-overlay"><i class="button-loader"></i></div>
+  </div>
+</div>
+{%- endif -%}
