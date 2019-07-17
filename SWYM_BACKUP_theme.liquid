@@ -1,0 +1,351 @@
+{%- comment -%}smartseo_integration_begin{%- endcomment -%}{%- capture smartseo_theme_content -%}{%- comment -%}smartseo_integration_end{%- endcomment -%}<!DOCTYPE html>
+<!--[if IE 7]><html lang="en" class="ie7 {% unless settings.responsive_design %}no-{% endunless %}responsive{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
+<!--[if IE 8]><html lang="en" class="ie8 {% unless settings.responsive_design %}no-{% endunless %}responsive{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9 {% unless settings.responsive_design %}no-{% endunless %}responsive{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><![endif]-->
+<!--[if !IE]><!--><html lang="en" class="{% unless settings.responsive_design %}no-{% endunless %}responsive{% if settings.page_direction == 'RTL' %} rtl{% endif %}"{% if settings.page_direction == 'RTL' %} dir="rtl"{% endif %}><!--<![endif]-->
+<head>
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TFTTKF6');</script>
+<!-- End Google Tag Manager -->
+  <meta name="p:domain_verify" 
+content="037abd8fd083c4cfe760882acdf4d637"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133422288-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-133422288-1');
+  gtag('config', 'AW-763983885');
+</script>
+
+  <!-- Hotjar Tracking Code for https://www.justminiatures.co.uk -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1223923,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+  <script>
+(function(s,m,a,r,t){
+if(s.hasOwnProperty("$smcInstall"))return!1;s.$smcInstall=1;
+s[r]=s[r]||[];var f=m.getElementsByTagName(a)[0],j=m.createElement(a),dl=r!='dataLayer'?'&r='+r:'';
+j.async=true;j.src='//smct.co/tm/?t='+t+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','justminiatures.co.uk');
+</script>
+
+  <meta name="google-site-verification" content="7GmCZfRhN2mE578KuGyghbUva7LiDa4KMxDVwgfv8P0" /><meta name="google-site-verification" content="WxET7f_1Cgamf0LKVkO7aHM2ImmgjvNfl11v6Ic5tgg" />{%- comment -%}smartseo_integration_begin{%- endcomment -%}{% include 'smartseo' %}{%- comment -%}smartseo_integration_end{%- endcomment -%}
+  
+  <meta charset="utf-8" />
+  <!--[if IE]>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+  {%- if settings.responsive_design -%}
+  <meta name="google-site-verification" content="Ug_vLixP7KhGTnKY9t_RDs1y6kkCQyWiPbAwFJb0kZQ" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />{%- endif -%}
+  {%- if canonical_url != '' -%}<link rel="canonical" href="{{ canonical_url }}" />{%- endif -%}
+  {%- if settings.favicon -%}<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />{%- endif -%}
+  {%- if settings.iphone_icon -%}<link rel="apple-touch-icon-precomposed" href="{{ 'iphone_icon.png' | asset_url }}" />{%- endif -%}
+  {%- if settings.iphone_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ 'iphone_icon_retina.png' | asset_url }}" />{%- endif -%}
+  {%- if settings.ipad_icon -%}<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ 'ipad_icon.png' | asset_url }}" />{%- endif -%}
+  {%- if settings.ipad_icon_retina -%}<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ 'ipad_icon_retina.png' | asset_url }}" />{%- endif -%}
+  {%- if page_description or page_description != '' -%}{%- comment smartseo_integration_begin_meta_data -%}
+  <meta name="description" content="{{ page_description }}" />{%- endcomment smartseo_integration_end_meta_data -%}{%- endif -%}
+  {%- if template contains 'index' -%}{%- if page_title != blank and page_title != 'Welcome' -%}{%- comment smartseo_integration_begin_meta_data -%}
+  <title>{{ page_title }}</title>{%- endcomment smartseo_integration_end_meta_data -%}{%- else -%}{%- comment smartseo_integration_begin_meta_data -%}
+  <title>{{ shop.name }}</title>{%- endcomment smartseo_integration_end_meta_data -%}{%- endif -%}{%- elsif template == '404' -%}{%- comment smartseo_integration_begin_meta_data -%}
+  <title>Page Not Found | {{ shop.name }}</title>{%- endcomment smartseo_integration_end_meta_data -%}{%- else -%}{%- comment smartseo_integration_begin_meta_data -%}
+  <title>{{ page_title }} | {{ shop.name }}</title>{%- endcomment smartseo_integration_end_meta_data -%}{%- endif -%}
+  {%- include 'fonts' -%}
+  {%- include 'social-meta-tags' -%}
+  {%- include 'shopify-head' -%}
+  {{ content_for_header }}
+{% include 'weketing-tracking' %}
+  
+  {% comment %}
+<!--    CUSTOM CSS -->
+  {{ 'custom.css' | asset_url | stylesheet_tag }}
+{% endcomment %}
+  
+  {% include 'atf' %}
+  
+<!--begin-bc-sf-filter-css-->
+  {% include 'bc-sf-filter-style' %}
+<!--end-bc-sf-filter-css-->
+  
+<!-- TrustBox script --> <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script> <!-- End TrustBox script -->
+
+<!-- TrustBox script -->  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"async></script>  <!-- End TrustBox script —>
+
+  <!--LIVE CHAT  -->
+ <!-- <script src="https://wchat.freshchat.com/js/widget.js"></script>-->
+  <!--LIVE CHAT  -->
+
+
+{% assign nowts = "now" | date: "%s" %}{% assign metats = shop.metafields._ls_meta.check %}{% assign timediff = nowts | minus: metats %}{% if timediff < 604800 %}<script src="https://livesearch.okasconcepts.com/js/livesearch.init.min.js?v=2&shop=justminiature.myshopify.com" async></script>{% endif %}
+
+  {% include 'gsf-conversion-pixels' %} 
+</head>
+
+{% capture body_class %}{% if settings.page_width == '3'  %} body-full-width{% endif %}{% if settings.advanced_product_list != '' %} product-list-type-{{settings.advanced_product_list}}{% endif %}{% if settings.advanced_product_grid != '' %} product-grid-type-{{settings.advanced_product_grid}}{% endif %}{% if settings.advanced_dropdown_menu != '' %} dropdown-menu-type-{{settings.advanced_dropdown_menu}}{% endif %}{% if settings.advanced_product_button != '' %} products-buttons-action-type-{{settings.advanced_product_button}}{% endif %}{% if settings.advanced_prev_next != '' %} buttons-prev-next-type-{{settings.advanced_prev_next}}{% endif %}{% if settings.advanced_input != '' %} inputs-type-{{settings.advanced_input}}{% endif %}{% if settings.advanced_myaccount != '' %} my-account-type-{{settings.advanced_myaccount}}{% endif %}{% if settings.advanced_cart_block != '' %} cart-block-type-{{settings.advanced_cart_block}}{% endif %}{% if settings.advanced_top_bar != '' %} top-bar-type-{{settings.advanced_top_bar}}{% endif %}{% if settings.advanced_product_page != '' %} product-page-type-{{settings.advanced_product_page}}{% endif %}{% if settings.advanced_megamenu_type != '' %} megamenu-type-{{settings.advanced_megamenu_type}}{% endif %}{% if settings.advanced_search != '' %} search-type-{{settings.advanced_search}}{% endif %}{% if settings.advanced_megamenu_label != '' %} megamenu-label-type-{{settings.advanced_megamenu_label}}{% endif %}{% if settings.advanced_box == '7' %} box-type-4{% else %} no-box-type-7{% endif %}{% if settings.advanced_box != '' %} box-type-{{settings.advanced_box}}{% endif %}{% if settings.advanced_header_margin_top != '' %} header-margin-top-{{settings.advanced_header_margin_top}}{% endif %}{% if settings.advanced_sale_new != '' %} sale-new-type-{{settings.advanced_sale_new}}{% endif %}{% if settings.advanced_button != '' %} button-body-type-{{settings.advanced_button}}{% endif %}{% if settings.advanced_countdown != '' %} countdown-special-type-{{settings.advanced_countdown}}{% endif %}{% if settings.advanced_footer != '' %} footer-type-{{settings.advanced_footer}}{% endif %}{% if settings.advanced_breadcrumb != '' %} breadcrumb-type-{{settings.advanced_breadcrumb}}{% endif %}{% if settings.advanced_border_width != '' %} border-width-{{settings.advanced_border_width}}{% endif %}{% if settings.body_background_color == '#ffffff' or settings.main_background_color == settings.body_background_color or settings.main_background_color == 'rgba(0,0,0,0)' %} body-white{% else %} body-other{% endif %}{% if settings.main_background_color == 'rgba(0,0,0,0)' %} body-white-type-2{% endif %}{% if settings.main_background_color == 'rgba(0,0,0,0)' and settings.box_product_bg == '#ffffff' %} body-white-type-3{% endif %}{% if settings.advanced_banner_hover != '' %} banners-effect-{{settings.advanced_banner_hover}}{% endif %}{{' body-header-type-' | append: settings.header_type}}{% if settings.header_always_show_vermenu_cat %} show-vertical-megamenu-category-page{% endif %}{% if settings.header_always_show_vermenu %} show-vertical-megamenu{% endif %}{% if template == "page.collection" %} templatePageCollection{% endif %}{% endcapture %}
+<body class="{% if template == 'index' %}common-home sidebar-content-{{settings.sidebar}}{% endif %} template{{ template | split: '.' | first | camelize }}{% if template == 'page.faq' %} module-faq{% endif %}{% if template == 'collection' or template contains 'collection.' %}{% if settings.collection_grid_list == 'list' %} cat-list{% endif %}{% endif %}{{body_class}}{%- if settings.product_mobile_variant == '1' and template contains 'product' or template contains 'cart' -%}{{" has-variant-mobile"}}{%- endif -%}{%- if template contains 'cart' and cart.item_count <= 0 -%}{{" no-cart-item-body"}}{%- endif-%}{%- if settings.product_design == "scroll" -%}{{- " fastor-product-design-sticky" -}}{%- endif -%}{{- " flex-view-" | append: settings.grid_view | append: " collection-template-" | append: settings.ctemplate_type -}}{%- if settings.menu_noborder  == false -%}{{-" menu-noborder"-}}{%- endif -%}">
+  {%- include 'global-symbols' -%}
+  {%- capture container_class -%}{% if settings.main_layout == '1' or settings.main_layout == '5' %}{{'standard-body'}}{% else %}{{'fixed-body'}}{% endif %}{% if settings.main_layout == '7' %}{{' fixed-body-shoes'}}{% endif %}{% if settings.main_layout == '4' or settings.main_layout == '6' %}{{' fixed-body-2'}}{% endif %}{% if settings.main_layout == '5' %}{{' fixed-body-2-2'}}{% endif %}{% if settings.main_layout == '3' %}{{' with-shadow'}}{% endif %}{%- endcapture -%}
+  {%- capture main_class -%}{% if settings.main_layout == '4' %}{{'main-fixed2 main-fixed'}}{% elsif settings.main_layout == '6' %}{{'main-fixed2 main-fixed3 main-fixed'}}{% elsif settings.main_layout != '1' and settings.main_layout != '5' %}{{'main-fixed'}}{% endif %}{%- endcapture -%}
+  {%- capture content_class -%}{% if settings.content_layout == '1' %}{{'full-width'}}{% elsif settings.content_layout == '4' %}{{'fixed2 fixed3'}}{% elsif settings.content_layout == '3' %}{{'fixed2'}}{% else %}{{'fixed'}}{% endif %}{%- endcapture -%}
+  {%- if settings.product_mobile_variant == '1' and template contains 'product' or template contains 'cart' -%}
+  {%- section "product-variants-mobile" -%}
+  {%- endif -%}
+  {%- include 'age-check' -%}
+  {%- include 'header-notice' -%}
+  {%- include 'top-promo' -%}
+  {%- if settings.shopping_cart_type == "ajax_popup" -%}
+  {%- include 'cart-popup' -%}
+  {%- endif -%}
+  {%- if settings.product_hide_breadcrumb and  template == 'product' and settings.product_breadcrumb != '2' -%}
+  {%- include 'fixed-product-navigation' -%}
+  {%- endif -%}
+   
+  <script src="https://snippets.freshchat.com/js/fc-pre-chat-form-v2.js"></script>
+<script>
+  var preChatTemplate = {
+    //Form header color and Submit button color.
+    mainbgColor: '#0aa4db',
+    //Form Header Text and Submit button text color.
+    maintxColor: '#fff',
+    //Chat Form Title
+    heading: 'GadgetGod',
+    //Chat form Welcome Message
+    textBanner: 'We can\'t wait to talk to you. But first, please take a couple of moments to tell us a bit about yourself.',
+    //Submit Button Label.
+    SubmitLabel: 'Start Chat',
+    //Fields List - Maximum is 5
+    //All the values are mandatory and the script will not work if not available.
+    fields : {
+      field1 : {
+        //Type can be either text or title
+        type: "title",
+        //Label for Field Title, can be in any language
+        label: "Title",
+        //Field ID for Title
+        fieldId: "title",
+        //Required "yes" or "no"
+        required: "yes",
+        //Error text to be displayed
+        error: "Please Enter a valid Title"
+      },
+      field2 : {
+        //Type for Name - Do not Change
+        type: "name",
+        //Label for Field Name, can be in any language
+        label: "Name",
+        //Default - Field ID for Name - Do Not Change
+        fieldId: "name",
+        //Required "yes" or "no"
+        required: "yes",
+        //Error text to be displayed
+        error: "Please Enter a valid name"
+      },
+      field3 : {
+        //Type for Email - Do Not Change
+        type: "email",
+        //Label for Field Email, can be in any language
+        label: "Email",
+        //Default - Field ID for Email - Do Not Change
+        fieldId: "email",
+        //Required "yes" or "no"
+        required: "yes",
+        //Error text to be displayed
+        error: "Please Enter a valid Email"
+      },
+      field4 : {
+        //Type for Phone - Do Not Change
+        type: "phone",
+        //Label for Field Phone, can be in any language
+        label: "Phone",
+        //Default - Field ID for Phone - Do Not Change
+        fieldId: "phone",
+        //Required "yes" or "no"
+        required: "yes",
+        //Error text to be displayed
+        error: "Please Enter a valid Phone Number"
+      },
+      
+    }
+  };
+  window.fcSettings = {
+    token: "5cf3dc62-4db9-4f75-bed5-8fa10756df5a",
+    host: "https://wchat.freshchat.com",
+    config: {
+      cssNames: {
+        //The below element is mandatory. Please add any custom class or leave the default.
+        widget: 'custom_fc_frame',
+        //The below element is mandatory. Please add any custom class or leave the default.
+        expanded: 'custom_fc_expanded'
+      }
+    },
+    onInit: function() {
+      console.log('widget init');
+      fcPreChatform.fcWidgetInit(preChatTemplate);
+    }
+  };
+</script>
+<script src="https://wchat.freshchat.com/js/widget.js" async></script>
+  <div class="{{container_class}}">
+    <div id="main" class="{{main_class}}">
+      {%- comment -%} Mobile Nav {%- endcomment -%}
+      {%- if settings.mmenu_enabled == "1" -%}
+      {%- section 'mobile-nav' -%}
+      {%- endif -%}
+      {%- comment -%} Header {%- endcomment -%}
+      {%- include 'header' -%}
+
+      {%- comment -%} Breadcrumb {%- endcomment -%}
+      {%- if template == 'product' -%}
+      {%- include 'breadcrumb' -%}
+      {%- endif -%}
+      {%- if settings.ctemplate_type == "promo" and template contains "collection"  and template != "list-collections" -%}
+      {%- include "collection-promo" -%}
+      {%- endif -%}
+      {%- comment -%} Main Content {%- endcomment -%}
+      <div class="main-content {{content_class}}{%- if template == 'index' -%}{{- " home" -}}{%- endif -%}">
+        <div class="background-content"></div>
+        <div class="background">
+          <div class="shadow"></div>
+          <div class="pattern">
+            <div class="container">
+              <div class="row">
+                {%- if template == 'index' -%}
+                <div class="col-md-12">
+                  <div class="row">
+                    {{content_for_layout}}
+                    {% include "arp" %}
+                  </div>
+                </div>
+                {%- else -%}
+                <div class="col-md-12">
+                  <div class="row">
+                    {{content_for_layout}}
+                    {% include "arp" %}
+                  </div>
+                  {%- if template == 'product' -%}
+                  {%- section 'banner' -%}
+                  {%- include 'product-bottom' -%}
+                  {%- endif -%}
+                  {%- if settings.ctemplate_type == "promo" and template contains "collection"  and template != "list-collections" -%}
+                  {%- section 'banner' -%}
+                  {%- endif -%}
+                </div>
+                {%- endif -%}
+              </div>
+            </div>    
+          </div>
+        </div>
+      </div>
+      
+      {%- include 'footer' -%}
+      {%- section "preface-footer" -%}
+    </div>
+    {%- include 'social-widget' -%}
+  </div>
+  {%- include 'off-canvas-layer' -%}
+  {%- include 'extension-mailchimp' -%}
+  {%- include 'extension-cookie' -%}
+  {%- include 'notify-template' -%}
+  {%- include 'photoswipe' -%}
+  {%- if template == 'page.contact2' -%}
+  <script src="{{ '//maps.google.com/maps/api/js?sensor=false&key=' | append: settings.ggm_api_key }}" defer="defer"></script>
+  <script src="{{ 'jquery.gmap.min.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if template == 'blog.grid' or template == 'blog.grid_3_columns' -%}
+  <script src="{{ 'masonry.pkgd.min.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if template == 'collection' or template contains 'collection.' -%}
+  <script src="{{ 'jquery.history.min.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if template == 'product' and settings.product_image_zoom != '2' -%}
+  <script src="{{ 'jquery.elevateZoom.min.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {%- if settings.show_multiple_currencies -%}
+  <script src="{{ '//cdn.shopify.com/s/javascripts/currencies.js' }}" defer="defer"></script>
+  {%- endif -%}
+  <script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer="defer"></script>
+  <script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script>
+  <script src="{{ 'rt.application.js' | asset_url }}" defer="defer"></script>
+  {%- if template == 'page.gallery' -%}
+  <script src="{{ 'modernizr.custom.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'imagesloaded.pkgd.min.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'masonry.pkgd.min.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'classie.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'cbpGridGallery.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+{% include 'swymSnippet' %}
+
+<!--begin-bc-sf-filter-js-->
+  {% include 'bc-sf-filter' %}
+<!--end-bc-sf-filter-js-->
+{% comment %} Init BC Action List {% endcomment %}
+<!--start-bc-al-init-->
+  {% include 'bc-al-init' %}
+<!--end-bc-al-init-->
+{% comment %} Init Recently Viewed Products {% endcomment %}
+<!-- start-bc-recently-viewed-product-init -->
+{% include 'bc-recently-viewed-product-init' %}
+<!-- end-bc-recently-viewed-product-init -->
+{% comment %} Init Most Popular Widgets {% endcomment %}
+<!--start-bc-most-popular-product-init-->
+  {% include 'bc-most-popular-product-init' %}
+<!--end-bc-most-popular-product-init-->
+  
+<!--   LIVE CHAT CODE START -->
+  
+  <script>
+  window.fcWidget.init({
+    token: "5cf3dc62-4db9-4f75-bed5-8fa10756df5a",
+    host: "https://wchat.freshchat.com"
+  });
+</script>
+  
+  <script>
+  // Make sure fcWidget.init is included before setting these values
+
+  // To set unique user id in your system when it is available
+  window.fcWidget.setExternalId("john.doe1987");
+
+  // To set user name
+  window.fcWidget.user.setFirstName("John");
+
+  // To set user email
+  window.fcWidget.user.setEmail("john.doe@gmail.com");
+
+  // To set user properties
+  window.fcWidget.user.setProperties({
+    plan: "Estate",                 // meta property 1
+    status: "Active"                // meta property 2
+  });
+</script>
+  
+<!--   LIVE CHAT CODE END -->
+
+  <script>
+(function(s,m,a,r,t){
+if(s.hasOwnProperty("$smcInstall"))return!1;s.$smcInstall=1;
+s[r]=s[r]||[];var f=m.getElementsByTagName(a)[0],j=m.createElement(a),dl=r!='dataLayer'?'&r='+r:'';
+j.async=true;j.src='//smct.co/tm/?t='+t+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','justminiatures.co.uk');
+</script>
+  <script src="//tags.affiliatefuture.com/6713.js"></script>
+
+</body>
+</html>{%- comment -%}smartseo_integration_begin{%- endcomment -%}{%- endcapture -%}{%- include 'smartseo-alt-tags' with smartseo_theme_content -%}{%- comment -%}smartseo_integration_end{%- endcomment -%}
