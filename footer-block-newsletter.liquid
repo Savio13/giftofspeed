@@ -1,0 +1,24 @@
+<!-- footer-block-newsletter.liquid =>START-->
+<div class=" newsletter newsletter-footer-{{block.settings.type}}" {{ block.shopify_attributes }}>
+  {%- if block.settings.footer_newsletter_heading != '' -%}
+  <div class="container" style="width: 100%;">
+    <div class="col-lg-12 cl-md-12 col-sm-12 col-xs-12">
+  <h4 class="col-lg-4 col-md-4 col-sm-4 col-xs-4 title font-size"style="float:left;font-size: 15px;margin-top: 13px;">{{block.settings.footer_newsletter_heading}}</h4>
+  <div class="strip-line"></div>
+  {%- endif -%}
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8  clearfix default-newsletter" style="float: right;">
+    {%- if block.settings.footer_newsletter_caption != '' -%}<p>{{block.settings.footer_newsletter_caption}}</p>{%- endif -%}
+    {%- if settings.popup_mailchimp_action != '' -%}
+    <form action="{{settings.popup_mailchimp_action}}" method="post" class="mailing-form" name="mc-embedded-subscribe-form" target="_blank">
+      <div class="group-input">      
+        <input placeholder="{{'general.footer.mailchimp.email_address' | t}}" type="email" required="required" name="EMAIL" class="email font-size" />
+        <button type="submit" class="footer-button font-size subscribe">{{'general.footer.mailchimp.subscribe_button' | t}}</button>
+      </div>
+    </form>
+    {%- endif -%}
+  </div>
+    </div>
+  </div>
+</div>
+
+<!-- footer-block-newsletter.liquid =>END-->

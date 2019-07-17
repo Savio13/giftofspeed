@@ -1,0 +1,119 @@
+<header class="header-type-2 header-type-7">
+  <div class="background-header"></div>
+  <div class="slider-header">
+    <!-- Top of pages -->
+     <!-- HEADER  7-->
+    <div id="top" class="{%- if settings.header_layout == '1' -%}full-width{%- elsif settings.header_layout == '4' -%}fixed3 fixed2{%- elsif settings.header_layout == '3' -%}fixed2{%- else -%}fixed{%- endif -%}">
+      <div class="background-top"></div>
+      <div class="background">
+        <div class="shadow"></div>
+        <div claass="pattern">
+          
+            <div class="container">
+            <div class="row headerpadding">
+              <!-- Header Left -->
+              <div style="margin-top: 13px;" class="col-lg-2 col-md-2 col-sm-4" id="header-left">		
+                <!-- Logo -->
+                 <!-- HEADER  7-->
+                {%- include "header-logo" -%}
+              </div>
+				
+              	<!-- MEGA MENU START -->
+              <div class="col-lg-8 col-md-8 col-sm-8">
+              <div  class="megamenu-background">
+              <div class="">
+                <div class="overflow-megamenu">
+                  <div class="row mega-menu-modules">
+                    {%- section 'header-menu1' -%}
+                    {%- section 'header-menu2' -%}
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+              <!--MEGA MENU END -->
+              
+              
+              <!-- Header Right -->
+              <div class="col-lg-2 col-md-2 col-sm-2 orderable cart-width" id="header-right" style="background: #31abed;">
+                {%- section 'header-top-block' -%}
+                <!-- Search -->
+                
+                {%- if settings.wishlist_enable -%}
+<!--                 <a href="{{pages[settings.wishlist_page].url}}" class="my-wishlist"><i class="fa fa-heart"></i></a> -->
+                {%- endif -%}
+                {%- include 'cartblock' with 'header' -%}
+              </div>
+            </div>
+          </div>
+          
+          <div class="top-bar">
+            <div class="container">
+               <div class="col-lg-12 col-md-12">
+              
+              <!--SEARCH FORM START-->
+          <div class="col-lg-4 col-md-4">
+          <form action="/search" method="get" role="search" class="search_form">
+                  <div class="button-search">{%- include "search-icon" with "form" -%}</div>
+                  <input type="search" name="q"  class="input-block-level search-query" id="search_query" placeholder="What are you looking for ?">
+                  <div id="autocomplete-results" class="autocomplete-results" style="display:none;"></div>
+                  <input type="hidden" name="type" value="product" />
+                </form>
+          
+          
+          </div>
+          <!--SEARCH FORM END-->
+                 
+<!--                  <div class="col-lg-6 col-md-6">
+                   <a class="col-lg-4 col-md-4" style="color:#fff;margin:12px 0px 0px 0px;width: 37%;text-align: right;" href="">Track Your Order</a>
+                   <a class="col-lg-1 col-md-1" style="color:#fff;margin:12px 0px 0px 0px;width: 14%;" href="">Login</a>
+                   <a class="col-lg-1 col-md-1" style="color:#fff;margin:12px 0px 10px 0px;width: 20%;text-align: center;" href="">Register</a>
+                   
+                 </div> -->
+              
+              <!-- Links -->
+              <div class="col-lg-6 col-md-6">
+              <ul class="menu">
+                  {%- if shop.customer_accounts_enabled -%}
+<!--                 <li><a href="/account">Track Your Order</a></li> -->
+             	{%- endif -%}
+                
+                {%- if shop.customer_accounts_enabled -%}
+                {%- if customer -%}
+                	<li><a href="/account">MY Account</a></li>
+                   <li><a href="/account/logout">Logout</a></li>
+                {%- else -%}
+                <li><a href="/account/login">Login</a></li>
+                 <li><a href="/account/register">Register</a></li>
+                {%- endif -%}
+               
+             	{% elsif shop.customer_accounts_disabled %}
+                <li><a href="/account/login">Login</a></li>
+                {%- endif -%}
+              </ul>
+              </div>
+              
+              <div class="col-lg-2 col-md-2">
+             <img style="position:absolute; height: 45px;" src="https://cdn.shopify.com/s/files/1/0029/4830/0911/files/JMHeaderSticker1.png?9948"/>
+              </div>
+             
+            </div>
+            </div>
+          </div>
+          
+          
+		 </div>
+      </div>
+    </div>
+  </div>
+  <!-- Slider -->
+  <div id="slider" class="{%- if settings.slideshow_layout == '1' -%}full-width{%- elsif settings.slideshow_layout == '4' -%}fixed3 fixed2{%- elsif settings.slideshow_layout == '3' -%}fixed2{%- else -%}fixed{%- endif -%}">
+    <div class="background-slider"></div>
+    <div class="background">
+      <div class="shadow"></div>
+      <div class="pattern orderable">
+        {%- include 'header-slideshow' -%}
+      </div>
+    </div>
+  </div>
+</header>

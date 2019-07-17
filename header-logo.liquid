@@ -1,0 +1,21 @@
+<div class="logo">
+  <a href="{{shop.url}}" title="{{ shop.name | escape }}">
+    {%- assign _logo = "logo.png" | asset_img_url: 'master'  -%}
+    {%- if settings.main_logo != blank -%}
+    {%- assign _logo = settings.main_logo | img_url: 'master' -%}
+    {%- endif -%}
+    <img src="{{ _logo }}"{{' '}}{%-if settings.logo_max_width != blank -%}style="max-width:{{settings.logo_max_width}}px;"{%-endif-%}{{' '}}title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+ </a>
+</div>
+{% comment %}
+<div class="logo">
+  <a href="{{shop.url}}" title="{{ shop.name | escape }}">
+    {%- if settings.main_logo != blank -%}
+    {%- assign _logo = settings.main_logo | img_url: 'master' -%}
+    <img src="{{ _logo }}"{{' '}}{%-if settings.logo_max_width != blank -%}style="max-width:{{settings.logo_max_width}}px;"{%-endif-%}{{' '}}title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+    {%- else -%}
+    <h1 class="logo-text">{{shop.name}}</h1>
+    {%- endif -%}
+ </a>
+</div>
+{% endcomment %}

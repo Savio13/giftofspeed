@@ -1,0 +1,25 @@
+{%- if settings.cookie_enable -%}
+{%- if settings.cookie_position == 'popup' -%}
+<div id="cookie" class="popup mfp-hide">
+  <h4>{{'general.cookie.title' | t}}</h4>
+  <div class="content">{{settings.cookie_content}}</div>
+  <div class="buttons-yes-no">
+    <a href="https://google.com" class="button btn-default">{{'general.cookie.no' | t}}</a>
+    <div class="button accept">{{'general.cookie.yes' | t}}</div>
+  </div>
+</div>
+{%- else -%}
+<div id="cookie" class="cookie {{settings.cookie_position}}">
+  <div class="standard-body">
+    <div class="full-width">
+      <div class="container">
+        <div class="content">{{settings.cookie_content}}</div>
+        <div class="operations">
+          <div class="button accept">{{'general.cookie.accept_cookies' | t}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+{%- endif -%}
