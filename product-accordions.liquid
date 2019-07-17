@@ -1,0 +1,70 @@
+<div class="product-accordions accordion-{{- settings.product_design -}}">
+  <div class="tab_text product-accordion active">
+    <div class="heading">
+      <a class="tab-heading" href="#product-description">
+        <h5>{{ 'products.product.description' | t  }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-description">
+      {{- product.description -}}
+    </div>
+  </div>
+  {%- if settings.product_tab_content_1 != blank -%}
+  <div class="tab_text product-accordion">
+    <div class="heading">
+      <a class="tab-heading" href="#product-tab-1">
+        <h5>{{settings.product_tab_title_1 }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-tab-1" style="display:none">
+      {{pages[settings.product_tab_content_1].content}}
+    </div>
+  </div>  
+  {%- endif -%}
+  {%- if settings.product_tab_content_2 != blank -%}
+  <div class="tab_text product-accordion">
+    <div class="heading">
+      <a class="tab-heading" href="#product-tab-2">
+        <h5>{{ settings.product_tab_title_2 }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-tab-2" style="display:none">
+      {{pages[settings.product_tab_content_2].content}}
+    </div>
+  </div>  
+  {%- endif -%}
+  {%- if settings.product_tab_content_3 != blank -%}
+  <div class="tab_text product-accordion">
+    <div class="heading">
+      <a class="tab-heading" href="#product-tab-1">
+        <h5>{{ product_tab_title_3 }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-tab-1" style="display:none">
+      {{pages[settings.product_tab_content_3].content}}
+    </div>
+  </div>  
+  {%- endif -%}
+  {%- if settings.product_tab_content_4 != blank -%}
+  <div class="tab_text product-accordion">
+    <div class="heading">
+      <a class="tab-heading" href="#product-tab-2">
+        <h5>{{ settings.product_tab_title_4 }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-tab-2" style="display:none">
+      {{pages[settings.product_tab_content_4].content}}
+    </div>
+  </div>  
+  {%- endif -%}
+  <div class="tab_text product-accordion">
+    <div class="heading">
+     <a id="product-reviews-a" class="tab-heading" href="#product-review">
+        <h5>{{ 'products.product.customer_reviews' | t | escape }}</h5>
+      </a>
+    </div>
+    <div class="panel product-accordion-content" id="product-review" style="display:none">
+      <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+    </div>
+  </div>  
+</div>  

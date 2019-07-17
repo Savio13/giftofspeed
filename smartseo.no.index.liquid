@@ -1,0 +1,2 @@
+{% capture noIndex %}
+  <meta name="robots" content="noindex" />{% endcapture %}{% capture noIndexOnSearchPage %}False{% endcapture %}{% capture noIndexOnTagPage %}False{% endcapture %}{% if noIndexOnSearchPage != blank and noIndexOnSearchPage == 'True' and template contains 'search' %}{{ noIndex }}{% endif %}{% if noIndexOnTagPage != blank and noIndexOnTagPage == 'True' and current_tags != blank %}{{ noIndex }}{% endif %}
