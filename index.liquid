@@ -1,0 +1,19 @@
+{%- if settings.sidebar == "none" -%}
+{{ content_for_index }}
+{%- else -%}
+<div class="row index-sidebar-{{settings.sidebar}}">
+  {%- if settings.sidebar == "left" -%}
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 sidebar-content">
+    {%- section "banner" -%}
+  </div>
+  {%- endif -%}
+  <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12 main-content">
+    {{ content_for_index }}
+  </div>
+  {%- if settings.sidebar == "right" -%}
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 sidebar-content">
+    {%- section "banner" -%}
+  </div>
+  {%- endif -%}
+</div>
+{%- endif -%}

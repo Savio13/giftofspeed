@@ -1,0 +1,120 @@
+<div id="content" class="col-md-12 center-column content-with-background">
+  {%- if cart.items == empty -%}
+  <p>{{'cart.general.empty' | t}}</p>
+  <div class="buttons">
+    <div class="pull-right"><a href="{{shop.url}}" class="btn btn-primary">{{'cart.general.continue_shopping' | t}}</a></div>
+  </div>
+  {%- else -%}
+  <form action="/cart" method="post" id="cartform" enctype="multipart/form-data">
+    <div class="table-responsive cart-info">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td class="text-center cart_basket_td">{{'cart.general.image' | t}}</td>
+            <td class="text-center cart_basket_td">{{'cart.general.name' | t}}</td>
+            <td class="text-center hidden-xs cart_basket_td">{{'cart.general.quantity' | t}}</td>
+            <td class="text-center hidden-xs cart_basket_td">{{'cart.general.price' | t}}</td>
+            <td class="text-center hidden-xs cart_basket_td">{{'cart.general.total' | t}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+          <tr>
+            <td class="text-center">
+              <a href="{{item.url}}"><img src="{{item | img_url:'small'}}" alt="{{item.title | escape}}" title="{{item.title | escape}}" class="img-thumbnail" /></a>
+            </td>
+            <td class="text-center">
+              <a href="{{item.url}}">
+                {{item.product.title}}
+                {%- if item.product.variants.size > 1 -%}
+                <span class="variant_title"> - {{item.variant.title}}</span>
+                {%- endif -%}
+              </a>
+              {%- for p in item.properties -%}
+              {%- unless p.last == blank -%}
+              {{ p.first }}:
+              {%- if p.last contains '/uploads/' -%}
+              <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+              {%- else -%}
+              {{ p.last }}
+              {%- endif -%}
+              <br />
+              {%- endunless -%}
+              {%- endfor -%}
+              <div class="mobile-cart-content row visible-xs">
+                <div class="col-xs-3">
+                  <input type="text" class="input-mobile" id="updates_{{item.id}}" name="updates[]" value="{{item.quantity}}" size="1" />
+                </div>
+                <div class="col-xs-6">
+                  <span class="money">{{item.price | money}}</span>
+                </div>
+                <div class="col-xs-3">
+                  <button class="cart-update btooltip" type="submit" name="update" title="{{'cart.general.update' | t | escape}}"><i class="fa fa-refresh"></i></button>
+                  &nbsp;
+                  <a class="cart-remove btooltip" href="/cart/change?line={{ forloop.index }}&quantity=0" title="{{'cart.general.remove' | t | escape}}"><i class="fa fa-remove"></i></a>
+                </div>
+              </div>
+            </td>
+            <td class="text-center hidden-xs">
+              <input  class="input-desktop cart-input-width" type="text" id="updates_{{item.id}}" name="updates[]" value="{{item.quantity}}" size="1" style="Width:100% !imortant;"/>
+              &nbsp;
+              <button class="cart-update btooltip" type="submit" name="update" title="{{'cart.general.update' | t | escape}}"><i class="fa fa-refresh"></i></button>
+              &nbsp;
+              <a class="cart-remove btooltip" href="/cart/change?line={{ forloop.index }}&quantity=0" title="{{'cart.general.remove' | t | escape}}"><i class="fa fa-remove"></i></a>
+            </td>
+            <td class="text-center hidden-xs cart_basket_td"><span class="money">{{item.price | money}}</span></td>
+            <td class="text-center hidden-xs cart_basket_td"><span class="money">{{item.price | times:item.quantity | money}}</span></td>
+          </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+    <h2>{{'cart.general.what_would_you_like_to_do_next' | t}}</h2>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"><a href="#collapse-note" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">{{'cart.general.note' | t}} <i class="fa fa-caret-down"></i></a></h4>
+        </div>
+        <div id="collapse-note" class="panel-collapse collapse" style="height:auto;">
+          <div class="panel-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-note">{{'cart.general.enter_note' | t}}</label>
+                <div class="col-sm-10">
+                  <textarea placeholder="{{'cart.general.enter_note' | t}}" id="input-note" rows="3" class="form-control" name="note">{{cart.note}}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-section-id="{{ section.id }}" data-section-type="shipping-calculator">
+        {%- include 'shipping-calculator' -%}
+      </div>
+    </div>
+    <div class="cart-total">
+      <table>
+        <tr>
+          <td class="text-right" style="font-size: 17px !important;"><strong>{{'cart.general.subtotal' | t}}</strong></td>
+          <td class="text-right" style="font-size: 17px !important;"><span class="money">{{cart.total_price | money}}</span></td>
+        </tr>
+      </table>
+    </div>
+    <div class="buttons">
+      <div class="pull-left"><a href="{{shop.url}}" class="btn btn-default">{{'cart.general.continue_shopping' | t}}</a></div>
+      <div class="pull-right"><input type="submit" name="checkout" id="update-cart" class="btn btn-primary" value="{{'cart.general.checkout' | t}}" /></div>
+    </div>
+    {%- if additional_checkout_buttons -%}
+    <div id="additional-checkout-buttons">
+      <span id="additional-checkout-buttons-label">{{'cart.general.checkout_using' | t}}:</span>
+      {{content_for_additional_checkout_buttons}}
+    </div>
+    {%- endif -%}
+  </form>
+{% include 'cross-sell' %}
+  {%- endif -%}
+</div>
+
+							<!-- PRODUCT BOTTOM CODE START -->
+
+							<!-- PRODUCT BOTTOM CODE END -->
