@@ -1,0 +1,56 @@
+{%- assign _allow_cart = false -%}
+{%- if product.available -%}
+{%- assign _allow_cart = true -%}
+{%- endif -%}
+<div id="{{- section.id -}}" class="product-variants-mobile{%- if product.variants.size > 1 -%}{{- " variants" -}}{%- endif -%}" data-section-id="{{- section.id -}}" data-section-type="{%- if template contains 'product' -%}product{%- else -%}cart{%- endif -%}-variant-mobile">
+  <div class="variants-header{%- if cart.item_count <= 0 -%}{{" no-cart-item"}}{%- endif-%}">
+    {%- if template contains 'product' -%}
+    <div class="title">
+      <a href="javascript:void(0)" id="title-{{- section.id -}}" >{{- product.title -}}</a>
+    </div>
+    <div class="action">
+      <a id="btn-{{- section.id -}}"  href="javascript:void(0);" class="button button-type-2 variant-header-btn{%- if _allow_cart -%}{{" m-allow-cart"}}{%- endif -%}">
+        {%- if _allow_cart -%}
+        {{- "general.variant.in_stock" | t  -}}
+        {%- else -%}
+        {{- "general.variant.out_of_stock" | t  -}}
+        {%- endif -%}
+      </a>
+    </div>
+    {%- else -%}
+    <div class="title">
+      <span class="cart-with-count">{{ 'general.variant.cart_with_count' | t: count: cart.item_count }}</span><span class="amount"><span class="money">{{ cart.total_price | money }}</span></span>		
+    </div>
+    {%- if cart.item_count > 0 -%}
+    <div class="action">
+      <a href="/checkout" id="btn-{{- section.id -}}"  href="javascript:void(0);" class="button button-type-2 variant-header-btn">
+        {{- "general.variant.checkout" | t  -}}
+      </a>
+    </div>
+    {%- endif -%}
+    {%- endif -%}
+  </div>
+  {%- if product.variants.size > 1 and template contains 'product' -%}
+  {%- assign v_instructions = product.metafields.info  -%}
+  <div class="variants-content">
+    <ul class="variants-items">
+    {%- for _variant in product.variants -%}
+    {%- if _variant.available -%}
+      <li class="variants-item">
+        <a href="javascript:void(0)" class="variant-item-{{section.id}}{%- if v_instructions.groupped == blank -%}{{" m-allow-cart"}}{%- endif -%}" data-id="{{- _variant.id -}}" >
+          {{- _variant.title -}}
+        </a>
+      </li>
+    {%- endif -%}
+    {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+</div>  
+{% schema %}
+  {
+    "name": "Product Variants Mobile",
+	"class": "product-variant-mobile-section",
+    "settings": []
+  }
+{% endschema %}

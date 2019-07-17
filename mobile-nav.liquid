@@ -1,0 +1,178 @@
+ <style>
+  {%- if section.settings.bg_color != blank -%}
+  #primary-{{section.id}} .mobile-nav-wrapper{
+    background-color: {{section.settings.bg_color}}
+  }
+  {%- endif -%}
+  {%- if section.settings.content_color != blank -%}
+  .mobile-nav .mobile-nav__item,
+  .mobile-nav .mobile-nav__item a {
+    color: {{section.settings.content_color}}	
+  }
+  {%- endif -%}
+  {%- if section.settings.border_color != blank -%} 
+  .mobile-nav .mobile-nav__item {
+    border-color: {{section.settings.border_color}}
+  }
+  {%- endif -%}
+</style>
+<div id="primary-{{section.id}}"  data-section-id="{{ section.id }}" data-section-type="mobile-nav-section">
+  <nav class="mobile-nav-wrapper">
+    <ul class="mobile-nav">
+      <li class="mobile-nav__item">
+        <div class="mobile-nav-icon">
+          <button type="button"><span></span></button>{{ 'general.header.close' | t }}
+        </div>
+      </li>
+      
+      {%- if section.settings.linklist != blank -%}
+        {%- for link in linklists[section.settings.linklist].links -%}
+          {%- include 'mobile-navigation-link' -%}
+        {%- endfor -%}
+      {%- endif -%}
+      
+      {%- if shop.customer_accounts_enabled -%}
+      <li class="mobile-nav__item">
+        <a href="/account" class="mobile-nav__link">
+          {%- if customer -%}
+          {{ 'general.top.my_account' | t }}
+          {%- else -%}
+          {{ 'general.top.login' | t }}
+          {%- endif -%}
+        </a>
+      </li>
+      {%- endif -%}
+      
+      {%- if settings.wishlist_enable and settings.wishlist_page -%}
+      <li class="mobile-nav__item">
+        <a href="/pages/{{ settings.wishlist_page }}" class="mobile-nav__link">{{ 'general.top.wishlist' | t }}</a>
+      </li>
+      {%- endif -%}
+      
+      {%- if settings.show_multiple_currencies -%}
+      <li class="mobile-nav__item mobile-nav-currency">
+        {%- include 'currencies-switcher', _has_language: false -%}
+      </li>
+      {%- endif -%}
+      <li class="mobile-nav__item mobile-nav-language">
+        <div class="dropdown language__picker">
+          <a href="javascript:void(0);" class="dropdown-toggle language_wrapper" data-hover="dropdown" data-toggle="dropdown">
+            <div class="language__current notranslate"></div>
+          </a>
+          <ul class="dropdown-menu language__switcher">
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav> 
+  
+													<!--MOBILE LOGO -->
+
+    
+      
+    
+  <div class="mobile-nav-logo text-center" >
+    
+    <li class="mobile-nav-item mobile-nav-icon" style="left:7%;margin-right: 0px !important;">
+      <button type="button"><span></span></button>
+    </li>
+    
+    <div class="container">
+      <a href="{{shop.url}}" title="{{ shop.name | escape }}">
+        {%- assign _logo = "logo.png" | asset_img_url: 'master'  -%}
+        {%- if settings.main_logo != blank -%}
+        {%- assign _logo = settings.main_logo | img_url: 'master' -%}
+        {%- endif -%}
+        <img src="{{ _logo }}"{{' '}}{%-if settings.mobile_logo_max_width != blank -%}style="max-width:{{settings.mobile_logo_max_width}}px;"{%-endif-%}{{' '}}title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+      </a>
+    </div>
+    
+     <li class="mobile-nav-item mobile-nav-cart" style="right:7%;">
+      <a href="/cart">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-cart-desktop"></use></svg>
+        <span class="total_count_ajax">{{ cart.item_count }}</span>
+      </a>
+    </li>
+    
+  </div>
+  {% comment %}
+  <div class="mobile-nav-logo text-center">
+    <div class="container">
+      <a href="{{shop.url}}" title="{{ shop.name | escape }}">
+        {%- if settings.main_logo != blank -%}
+        {%- assign _logo = settings.main_logo | img_url: 'master' -%}
+        <img src="{{ _logo }}"{{' '}}{%-if settings.mobile_logo_max_width != blank -%}style="max-width:{{settings.mobile_logo_max_width}}px;"{%-endif-%}{{' '}}title="{{ shop.name | escape }}" alt="{{ shop.name | escape }}" />
+        {%- else -%}
+        <h1 class="logo-text">{{shop.name}}</h1>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+  {% endcomment %}
+  
+  
+</div>
+  
+  
+  <ul class="mobile-nav-bar" style="background: #2f2f2f;">
+<!--     <li class="mobile-nav-item mobile-nav-icon">
+      <button type="button"><span></span></button>
+    </li> -->
+    <li class="mobile-nav-item mobile-nav-search mobile_home_serch">
+      <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-search"></use></svg>
+    </li>
+    <li class="mobile-nav-item mobile-nav-profile mobile_home_account">
+      <a style="color:#fff !important;" href="/account"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-profile"></use></svg></a>
+    </li>
+<!--     <li class="mobile-nav-item mobile-nav-cart">
+      <a href="/cart">
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#global__symbols-cart-desktop"></use></svg>
+        <span class="total_count_ajax">{{ cart.item_count }}</span>
+      </a>
+    </li> -->
+  </ul>
+  <form action="/search" method="get" role="search" class="mobile-nav-search-form">
+    <div class="mobile-nav-search-close"><span></span></div>
+    <input type="search" name="q" class="input-block-level search-query" placeholder="{{ 'search.general.placeholder' | t }}" />
+    <div class="autocomplete-results"></div>
+    <input type="hidden" name="type" value="product" />
+  </form>
+  
+
+{% schema %}
+  {
+    "name": "Mobile Nagivation",
+	"class": "header-mobile-section",
+    "settings": [
+		{
+			"type": "header",
+			"content": "General"
+		},
+		{
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Choose a Linklist"
+		},
+		{
+			"type": "header",
+			"content": "Styling"
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background"
+		},
+		{
+			"type": "color",
+			"id": "content_color",
+			"label": "Content"
+		},
+		{
+			"type": "color",
+			"id": "border_color",
+			"label": "Border"
+		}
+		
+	]
+  }
+{% endschema %}

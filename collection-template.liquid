@@ -1,0 +1,116 @@
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+{%- assign per_page = settings.collection_limit -%}
+{%- assign aView =  pUrl | split : "view=" -%}
+{%- if aView.size > 1 and aView[1] != blank-%}
+{%- assign per_page = aView[1] | plus: 0  -%}
+{%- endif -%}
+{%- assign tmp =  shop.url | append: collection.url | append: "/" -%}
+{%- assign tmp_url = canonical_url | replace : tmp, ""  -%}
+{%- assign a_tmp_url = tmp_url | split: "/" -%}
+<input class="collection-canonical_url" type="hidden" data-url="collections/{{- collection.handle -}}" data-parts="{{- a_tmp_url.size -}}" value="{{tmp_url}}">
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template" data-view="{{per_page}}">
+  {%- if settings.sb_collection_placement == 'left' -%}
+  <div id="sidebar" class="col-md-3 col-sm-12 col-xs-12{% if settings.sb_collection_mobile %} visible-sm visible-xs{% endif %}">
+    {%- include 'sidebar-collection' -%}
+  </div>
+  {%- endif -%}
+  {%- paginate collection.products by 24 -%}
+  <div id="col-main" class="center-column content-without-background collection-page{% if settings.sb_collection_placement != '' %} col-md-9{% else %} col-md-12{% endif %} col-sm-12{% if settings.shop_pagination != '' %} hide-pagination{% endif %}">
+    <div id="mfilter-content-container" class="{%- if settings.collection_list_grid == '0' -%}list{%- else -%}grid{%- endif -%}">
+      {%- if collection.image or collection.description != blank -%}
+      
+      {%- endif -%}
+      {%- include 'collection-filter' -%}
+      <div id="sandbox">
+        {%- if collection.products.size > 0 -%}
+        <div class="product-list products">
+          {%- for product in collection.products -%}
+          {%- include 'product-item2' -%}
+          {%- endfor -%}
+        </div>
+        {%- if settings.ctemplate_type == "promo" -%}
+        <div class="product-grid products">
+          <div class="row">
+            {%- for product in collection.products -%}
+            <div class="col-sm-4 col-xs-6 product-item displayproduct dis">
+              {%- include 'product-collection-item' -%}
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- else -%}
+        {%- assign grid_row = settings.collection_product_per_pow2 | plus:0 -%}
+        {%- assign grid_class = 3 -%}
+        {%- if settings.collection_product_per_pow2 == '6' -%}{%- assign grid_class = 2 -%}{%- elsif settings.collection_product_per_pow2 == '5' -%}{%- assign grid_class = 25 -%}{%- elsif settings.collection_product_per_pow2 == '3' -%}{%- assign grid_class = 4 -%}{%- endif -%}
+        <div class="product-grid products">
+          <div class="row">
+            {%- assign row_fluid = 0 -%}
+            {%- for product in collection.products -%}
+            <div class="col-sm-{{grid_class}} col-xs-6 product-item">
+              {%- include 'product-collection-item' -%}
+              
+              
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- endif -%}
+        {%- else -%}
+        <p class="empty" style="font-size: 189%;color: red;">OOPS..! This Collection seams empty. </p>
+        <div class="row">
+        <p style="float: left;"> By The Time We Add New Drinks For You,</p>
+        <a href="/collections/top-100-best-buy-miniatures" style="color: blue;font-size: 100%; margin-left:1%;"> Hears What We Recommend...</a>
+        </div>
+        
+          <div class="buttons">
+          <div class="pull-right"><a href="{{shop.url}}" class="btn btn-primary">{{'collections.general.continue' | t}}</a></div>
+        </div>
+        {%- endif -%}
+      </div>
+      {%- case settings.shop_pagination -%}
+      {%- when '1' -%}
+      <div class="fastor_ajax_load_button fastor_ajax_load_more_btn animated fadeIn">
+        <a class="button" href="#" data-processing="0" data-loading-items="{{ 'general.pagination.loading_items' | t | escape }}" data-no-more="{{ 'general.pagination.no_more' | t | escape }}">
+          {{- 'general.pagination.load_more' | t | escape -}}
+        </a>
+      </div>
+      {%- include 'pagination' -%}
+      {%- when '2' -%}
+      <div class="fastor_ajax_load_button fastor_ajax_load_more_hidden animated fadeIn">
+        <a class="button" href="#" data-processing="0" data-loading-items="{{ 'general.pagination.loading_items' | t | escape }}" data-no-more="{{ 'general.pagination.no_more' | t | escape }}">
+          <i class="icon-px-outline-load"></i>
+          &nbsp;&nbsp;{{- 'general.pagination.load_more' | t | escape -}}
+        </a>
+      </div>
+      {%- include 'pagination' -%}
+      {%- else -%}
+      {%- include 'pagination' -%}
+      {%- endcase -%}
+      {%- include 'spinner' -%}
+      
+      <div class="category-info clearfix">
+        {%- if collection.image -%}<div class="image"><img src="{{collection.image | img_url: 'small'}}" alt="{{collection.title | escape}}" /></div>{%- endif -%}
+        {%- if collection.description -%}{{collection.description}}{%- endif -%}
+      </div>
+    </div>
+  </div>
+  {%- endpaginate -%}
+
+  {%- if settings.sb_collection_placement == 'right' -%}
+  <div id="sidebar" class="col-md-3 col-sm-12{% if settings.sb_collection_mobile %} hidden-sm hidden-xs{% endif %}">
+    {%- include 'sidebar-collection' -%}
+  </div>
+  {%- endif -%}
+</div>
+{% schema %}
+  {
+    "name": "Collection Page",
+    "settings": []
+  }
+{% endschema %}
