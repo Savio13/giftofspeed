@@ -1,0 +1,150 @@
+{%- assign img_parts = smartseo-alt-tags | split: '<img' -%} {%- comment -%}/>{%- endcomment -%}
+{%- assign productVariantHashSeed = '' -%}
+{%- if product -%}
+	{%- assign productVariantHashSeed = '?variantId='| append: product.selected_or_first_available_variant.id -%}
+{%- endif -%}
+{%- assign page_content = '' -%}
+{%- for img_part in img_parts -%}
+    {%- assign current_img_part = img_part -%}
+    {%- if img_part contains '/products/' -%} 
+        {%- assign stop_template_processing = false -%}
+        {%- assign should_replace_alt_tags = false -%}
+        {%- assign replacement_alt_template = '' -%}
+        {%- assign should_append_missing_alt_tag = false -%}
+	    {%- assign should_replace_empty_alt_tag = false -%}
+        {%- assign alt_splitter="alt='" -%}
+        {%- assign closing_alt_content_splitter="'" -%}
+        {%- if img_part contains 'alt=' -%}
+        	{%- if img_part contains 'alt="' -%}
+        	    {%- assign alt_splitter = 'alt="' -%}
+        	    {%- assign closing_alt_content_splitter = '"' -%}
+        	{%- endif -%}
+        	{%- assign img_part_parts = img_part | split: alt_splitter -%}
+        	{%- assign alt_parts = img_part_parts | last | split: closing_alt_content_splitter -%}
+        	{%- assign alt_content = alt_parts | first -%}
+		{%- else -%}
+			{%- if img_part contains 'alt' -%}
+				{%- assign should_replace_empty_alt_tag = true -%}
+			{%- else -%}
+				{%- assign should_append_missing_alt_tag = true -%}
+			{%- endif -%}
+		{%- endif -%}
+        {%- assign src_splitter = "src='" -%}
+        {%- assign closing_src_content_splitter = "'" -%}
+        {%- if img_part contains 'src="' -%}
+            {%- assign src_splitter='src="' -%}
+            {%- assign closing_src_content_splitter = '"' -%}
+        {%- endif -%}
+        {%- assign img_part_parts = img_part | split: src_splitter -%}
+        {%- assign src_parts = img_part_parts[1] | split: closing_src_content_splitter -%}
+        {%- assign src_content = src_parts | first -%}
+        {%- comment -%} We need to replace all the image url filters because they are not part of the image file name {%- endcomment -%}
+		{%- comment -%} Replace the size filters {%- endcomment -%}
+		{%- assign src_content = src_content | replace: '_original', '' | replace: '_grande', '' | replace: '_pico', '' | replace: '_icon', '' | replace: '_thumb', '' | replace: '_small', '' | replace: '_compact', '' | replace: '_medium', '' | replace: '_large', '' | replace: '_master', '' -%}
+		{%- comment -%} Replace the cropt filters {%- endcomment -%}
+		{%- assign src_content = src_content | replace: '_crop_top', '' | replace: '_crop_center', '' | replace: '_crop_bottom', '' -%}
+		{%- comment -%} Replace the scale filters {%- endcomment -%}
+		{%- assign src_content = src_content | replace: '@2x', '' | replace: '@3x', '' -%}
+		{%- comment -%} Replace the numeric size filters, i.e. 1024X1024 {%- endcomment -%}
+		{%- assign fileExtensionWithQuery = src_content | split: '.' | last | prepend: '.' -%}
+		{%- assign imageUrlWithoutFileExtensionAndQuery = src_content | replace: fileExtensionWithQuery, '' -%}
+		{%- assign imageSizeFilter = imageUrlWithoutFileExtensionAndQuery | split: '_' | last -%}
+		{%- assign isSizeFilter = true -%}
+		{%- comment -%}
+			Because we could have "_" as part of the image url,
+			we take the string after the "_" and check if it is an image size filter.
+			For example if the image size filter is 1024X1024, split it by "X" and check
+			if each item in the array is at most 4 in length and if it is a number.
+			The length of the string after the "_" needs to be at most 4 characters because we could have a guid that starts with some digits,
+			and then the | abs filter would return a number and we would take the guid for an image size filter.
+        {%- endcomment -%}
+        {%- if imageSizeFilter contains 'X' or imageSizeFilter contains 'x' -%}
+            
+            {%- assign imageSizes = imageSizeFilter | downcase | split: 'x' -%}
+            {%- for imageSize in imageSizes -%}
+				    {%- assign imageSizeStringLength = imageSize | size -%}
+				    {%- assign imageSizeNumber = imageSize | abs -%}
+				    {%- if imageSize != '' -%}
+					    {%- if imageSizeStringLength > 4 or imageSizeNumber == 0 -%}
+						    {%- assign isSizeFilter = false -%}
+						    {%- break -%}
+					    {%- endif -%}
+				    {%- endif -%}
+            {%- endfor -%}
+        {%- else -%}
+            {%- assign isSizeFilter = false -%}
+        {%- endif -%}
+		{%- if isSizeFilter -%}
+			{%- assign imageSizeFilter = imageSizeFilter | prepend: '_' -%}
+			{%- assign src_content = src_content | replace: imageSizeFilter, '' -%}
+		{%- endif -%}
+        {%- assign imgSrcMd5HashFirst20Chars = 'https:' | append: src_content | append: productVariantHashSeed | md5 | slice: 0, 20 -%}
+        {%- assign imgSrcMd5HashFirst30Chars = 'https:' | append: src_content | append: productVariantHashSeed | md5 | slice: 0, 30 -%}
+        {%- assign current_product_information = shop.metafields[imgSrcMd5HashFirst20Chars][imgSrcMd5HashFirst30Chars] -%}
+        {%- comment -%}
+            For the images of related products on a product page we build metafields hash key only from their src attribute, so that we can get correct info for their respective products.
+		{%- endcomment -%}
+		{%- if current_product_information == blank -%}
+            {%- assign imgSrcMd5HashFirst20Chars = 'https:' | append: src_content | md5 | slice: 0, 20 -%}
+			{%- assign imgSrcMd5HashFirst30Chars = 'https:' | append: src_content | md5 | slice: 0, 30 -%}
+        	{%- assign current_product_information = shop.metafields[imgSrcMd5HashFirst20Chars][imgSrcMd5HashFirst30Chars] -%}
+		{%- endif -%}
+        {%- if current_product_information != blank -%}
+            {%- assign smartSeoProductIdArray = current_product_information | split: '|:productId:|' -%}
+            {%- assign smartSeoProductId = smartSeoProductIdArray[1] -%}
+            {%- assign smartSeoProductCollectionIdsArray = current_product_information | split: '|:collectionIds:|' -%}
+			{%- assign smartSeoProductCollectionIds = smartSeoProductCollectionIdsArray[1] -%}
+            {%- assign smartSeoProductTitleArray = current_product_information | split: '|:title:|' -%}
+			{%- assign smartSeoProductTitle = smartSeoProductTitleArray[1] -%}
+			{%- assign smartSeoProductDescriptionArray = current_product_information | split: '|:description:|' -%}
+			{%- assign smartSeoProductDescription = smartSeoProductDescriptionArray[1] | escape_once -%}
+			{%- assign smartSeoProductSkuArray = current_product_information | split: '|:sku:|' -%}
+			{%- assign smartSeoProductSku = smartSeoProductSkuArray[1] -%}
+			{%- assign smartSeoProductBarcodeArray = current_product_information | split: '|:barcode:|' -%}
+			{%- assign smartSeoProductBarcode = smartSeoProductBarcodeArray[1] -%}
+			{%- assign smartSeoProductPriceArray = current_product_information | split: '|:price:|' -%}
+			{%- assign smartSeoProductPrice = smartSeoProductPriceArray[1] -%}
+			{%- assign smartSeoProductMinPriceArray = current_product_information | split: '|:minPrice:|' -%}
+			{%- assign smartSeoProductMinPrice = smartSeoProductMinPriceArray[1] -%}
+			{%- assign smartSeoProductMaxPriceArray = current_product_information | split: '|:maxPrice:|' -%}
+			{%- assign smartSeoProductMaxPrice = smartSeoProductMaxPriceArray[1] -%}
+            {%- assign smartSeoProductCompareAtPriceArray = current_product_information | split: '|:compareAtPrice:|' -%}
+			{%- assign smartSeoProductCompareAtPrice = smartSeoProductCompareAtPriceArray[1] -%}
+			{%- assign smartSeoProductMinCompareAtPriceArray = current_product_information | split: '|:minCompareAtPrice:|' -%}
+			{%- assign smartSeoProductMinCompareAtPrice = smartSeoProductMinCompareAtPriceArray[1] -%}
+			{%- assign smartSeoProductMaxCompareAtPriceArray = current_product_information | split: '|:maxCompareAtPrice:|' -%}
+			{%- assign smartSeoProductMaxCompareAtPrice = smartSeoProductMaxCompareAtPriceArray[1] -%}
+			{%- assign smartSeoProductTagsArray = current_product_information | split: '|:tags:|' -%}
+			{%- assign smartSeoProductTags = smartSeoProductTagsArray[1] -%}
+			{%- assign smartSeoProductTypeArray = current_product_information | split: '|:productType:|' -%}
+			{%- assign smartSeoProductType = smartSeoProductTypeArray[1] -%}
+			{%- assign smartSeoProductVendorArray = current_product_information | split: '|:vendor:|' -%}
+			{%- assign smartSeoProductVendor = smartSeoProductVendorArray[1] -%}
+            {%- assign smartSeoProductOption1Array = current_product_information | split: '|:option1:|' -%}
+			{%- assign smartSeoProductOption1 = smartSeoProductOption1Array[1] -%}
+            {%- assign smartSeoProductOption2Array = current_product_information | split: '|:option2:|' -%}
+			{%- assign smartSeoProductOption2 = smartSeoProductOption2Array[1] -%}
+            {%- assign smartSeoProductOption3Array = current_product_information | split: '|:option3:|' -%}
+			{%- assign smartSeoProductOption3 = smartSeoProductOption3Array[1] -%}
+            
+
+
+
+        {%- endif -%}
+        {%- assign replacement_alt_template = replacement_alt_template | escape_once -%}
+        {%- assign replacement_alt_tag = alt_splitter | append: replacement_alt_template | append: closing_alt_content_splitter -%}
+		{%- if should_append_missing_alt_tag and replacement_alt_template != blank -%}
+          	{%- assign current_img_part = img_part | prepend: replacement_alt_tag -%}
+		{%- elsif should_replace_empty_alt_tag and replacement_alt_template != blank -%}
+			{%- assign current_alt_tag = 'alt' -%}
+           	{%- assign current_img_part = img_part | replace: current_alt_tag, replacement_alt_tag -%}
+		{%- else -%}
+			{%- if should_replace_alt_tags and replacement_alt_template != blank -%}
+            	{%- assign current_alt_tag = alt_splitter | append: alt_content | append: closing_alt_content_splitter -%}
+            	{%- assign current_img_part = img_part | replace: current_alt_tag, replacement_alt_tag -%}
+        	{%- endif -%}
+		{%- endif -%}
+    {%- endif -%}
+    {%- assign page_content = page_content | append: '<img ' | append: current_img_part -%} {%- comment -%}/>{%- endcomment -%}
+{%- endfor -%}
+{{page_content | replace_first: '<img ', ''}}
